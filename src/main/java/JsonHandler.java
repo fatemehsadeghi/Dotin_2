@@ -14,7 +14,7 @@ import java.util.*;
 
 public class JsonHandler {
     public static List<Deposit> depositList = new ArrayList<>();
-
+    //public HashMap
     public static void main(String[] args) throws FileNotFoundException,
             IOException, ParseException {
 
@@ -22,6 +22,7 @@ public class JsonHandler {
      //   writeJson();
     }
     public static void parseJson() throws IOException, ParseException {
+        HashMap<String, Object> map = new HashMap<String, Object>();
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(new FileReader("core.json"));
         String stringPort = (String) jsonObject.get("port");
@@ -31,11 +32,17 @@ public class JsonHandler {
         for (JSONObject c : (List<JSONObject>) deposits) {
             Deposit deposit = new Deposit();
             deposit.setCustomer((String) c.get("customer"));
-            deposit.setId(Integer.parseInt((String) c.get("id")));
+            String id = (String) c.get("id");
+                   deposit.setId( id);
+                           //Integer.parseInt((String) c.get("id")));
+            //System.out.println(id+";;;;;;;;;;;");
             deposit.setInitialBalance(new BigDecimal((String) c.get("initialBalance")));
             deposit.setUpperBound(new BigDecimal((String) c.get("upperBound")));
-            depositList.add(deposit);
-            System.out.println(deposit);
+            //depositList.add(deposit);
+
+            map.put(id , deposit);
+            System.out.printf(id+""+ deposit);
+
         }
     }
     /*

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class XmlHandler {
 
-    public static List<Transaction> parseXml() {
+    public  List<Transaction> parseXml() {
         String terminalId;
         String terminalType;
         String serverIp;
@@ -97,7 +97,8 @@ public class XmlHandler {
     }
 
 
-    public static void main(String[] args) {
-        parseXml();
+    public static void main(String[] args)
+    {
+        //parseXml();
     }
 }

@@ -19,22 +19,30 @@ public class Terminal {
         BufferedReader terminalBufferReader = new BufferedReader(serverStreamReader);
         String message = terminalBufferReader.readLine();
         System.out.println(message);
+        XmlHandler xmlHandler = new XmlHandler();
+        List<Transaction> transactionList = xmlHandler.parseXml();
+        ObjectOutputStream os = new ObjectOutputStream(terminalSocket.getOutputStream());
+        for (int i=0 ; i<transactionList.size() ; i++) {
+            //Transaction transactionObject : transactionList);
+            os.writeObject(transactionList.indexOf(i));
+
+        }
+
+
 
     }
+    /*
     public Object passTransaction(){
-        XmlHandler.parseXml();
-        XmlHandler m1 = new XmlHandler();
-        List<Transaction> transList = m1.parseXml();
-        //List <Transaction> temp = new ArrayList<>();
-        //for (String[] s : transaction) {
-           // System.out.println("Next item: " + s);
-        for (Transaction transactionObject : transList);
+        XmlHandler xmlHandler = new XmlHandler();
+        List<Transaction> transactionList = xmlHandler.parseXml();
+        ObjectOutputStream os = new ObjectOutputStream(ter.getOutputStream());
+        for (Transaction transactionObject : transactionList);
+        objectOutput.writeObject();
 
-        //(List<Transaction>)
 
 
 
         return null;
     }
-
+*/
 }
