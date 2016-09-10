@@ -9,40 +9,23 @@ public class Terminal {
     public static void main(String[] args) throws IOException {
         Terminal terminal = new Terminal();
         terminal.run();
-
     }
     public void run() throws IOException {
+        XmlHandler xmlHandler = new XmlHandler();
+        List<Transaction> transactionList = xmlHandler.parseXml();
+        int size = transactionList.size();
+        String sizi= String.valueOf(size);
         Socket terminalSocket =new Socket("localhost",8080);
+        ObjectOutputStream outputStream = new ObjectOutputStream(terminalSocket.getOutputStream());
         PrintStream printStream =new PrintStream(terminalSocket.getOutputStream());
-        printStream.println("azi");
+        printStream.println("++++++++");
         InputStreamReader serverStreamReader = new InputStreamReader(terminalSocket.getInputStream());
         BufferedReader terminalBufferReader = new BufferedReader(serverStreamReader);
         String message = terminalBufferReader.readLine();
         System.out.println(message);
-        XmlHandler xmlHandler = new XmlHandler();
-        List<Transaction> transactionList = xmlHandler.parseXml();
-        ObjectOutputStream os = new ObjectOutputStream(terminalSocket.getOutputStream());
-        for (int i=0 ; i<transactionList.size() ; i++) {
+        for (Transaction tx : transactionList) {
             //Transaction transactionObject : transactionList);
-            os.writeObject(transactionList.indexOf(i));
-
+            outputStream.writeObject(tx);
         }
-
-
-
     }
-    /*
-    public Object passTransaction(){
-        XmlHandler xmlHandler = new XmlHandler();
-        List<Transaction> transactionList = xmlHandler.parseXml();
-        ObjectOutputStream os = new ObjectOutputStream(ter.getOutputStream());
-        for (Transaction transactionObject : transactionList);
-        objectOutput.writeObject();
-
-
-
-
-        return null;
-    }
-*/
 }

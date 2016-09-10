@@ -9,10 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.security.Provider;
 import java.util.*;
 
 public class JsonHandler {
+    public static HashMap<String, Deposit> depositMap = new HashMap<String, Deposit>();
     public static List<Deposit> depositList = new ArrayList<>();
     //public HashMap
     public static void main(String[] args) throws FileNotFoundException,
@@ -22,7 +22,6 @@ public class JsonHandler {
      //   writeJson();
     }
     public static void parseJson() throws IOException, ParseException {
-        HashMap<String, Object> map = new HashMap<String, Object>();
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(new FileReader("core.json"));
         String stringPort = (String) jsonObject.get("port");
@@ -33,14 +32,10 @@ public class JsonHandler {
             Deposit deposit = new Deposit();
             deposit.setCustomer((String) c.get("customer"));
             String id = (String) c.get("id");
-                   deposit.setId( id);
-                           //Integer.parseInt((String) c.get("id")));
-            //System.out.println(id+";;;;;;;;;;;");
+            deposit.setId( id);
             deposit.setInitialBalance(new BigDecimal((String) c.get("initialBalance")));
             deposit.setUpperBound(new BigDecimal((String) c.get("upperBound")));
-            //depositList.add(deposit);
-
-            map.put(id , deposit);
+            depositMap.put(id, deposit);
             System.out.printf(id+""+ deposit);
 
         }
